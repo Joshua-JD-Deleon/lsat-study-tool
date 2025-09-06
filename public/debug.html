@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Page</title>
+</head>
+<body>
+    <h1>Debug Information</h1>
+    <div id="debug"></div>
+    <script>
+        const debug = document.getElementById('debug');
+        
+        // Check if React app root exists
+        const root = document.getElementById('root');
+        debug.innerHTML += '<p>Root element exists: ' + (root !== null) + '</p>';
+        
+        // Check for JS files
+        const scripts = Array.from(document.getElementsByTagName('script'));
+        debug.innerHTML += '<p>Scripts loaded: ' + scripts.length + '</p>';
+        scripts.forEach((script, i) => {
+            debug.innerHTML += '<p>Script ' + i + ': ' + (script.src || 'inline') + '</p>';
+        });
+        
+        // Check for console errors
+        window.addEventListener('error', (e) => {
+            debug.innerHTML += '<p style="color:red">Error: ' + e.message + '</p>';
+        });
+        
+        // Check React
+        setTimeout(() => {
+            debug.innerHTML += '<p>React loaded: ' + (typeof React !== 'undefined') + '</p>';
+            debug.innerHTML += '<p>ReactDOM loaded: ' + (typeof ReactDOM !== 'undefined') + '</p>';
+        }, 1000);
+    </script>
+</body>
+</html>
